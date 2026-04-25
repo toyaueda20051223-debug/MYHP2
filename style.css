@@ -272,6 +272,37 @@ button { cursor: pointer; border: none; background: none; }
   100% { opacity: 0; transform: scaleY(0); transform-origin: bottom; }
 }
 
+/* ===== 実績数字 ===== */
+.stats {
+  background: var(--navy);
+  padding: 64px 0;
+}
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+}
+.stat-item {
+  text-align: center;
+  padding: 24px;
+  border-right: 1px solid rgba(255, 255, 255, 0.12);
+}
+.stat-item:last-child { border-right: none; }
+.stat-number {
+  font-family: var(--font-en);
+  font-size: clamp(2.4rem, 4vw, 3.6rem);
+  font-weight: 300;
+  color: #fff;
+  display: block;
+  line-height: 1;
+  margin-bottom: 10px;
+  letter-spacing: 0.04em;
+}
+.stat-label {
+  font-size: 0.82rem;
+  color: rgba(255, 255, 255, 0.6);
+  letter-spacing: 0.08em;
+}
+
 /* ===== コンセプト ===== */
 .concept {
   padding: 100px 0;
@@ -768,6 +799,10 @@ textarea { resize: vertical; }
 @media (max-width: 900px) {
   .nav { display: none; }
   .hamburger { display: flex; }
+  .stats-grid { grid-template-columns: repeat(2, 1fr); }
+  .stat-item:nth-child(2) { border-right: none; }
+  .stat-item:nth-child(3) { border-top: 1px solid rgba(255,255,255,0.12); border-right: 1px solid rgba(255,255,255,0.12); }
+  .stat-item:nth-child(4) { border-top: 1px solid rgba(255,255,255,0.12); }
   .concept-grid { grid-template-columns: 1fr; gap: 48px; }
   .course-grid { grid-template-columns: 1fr; }
   .access-grid { grid-template-columns: 1fr; }
