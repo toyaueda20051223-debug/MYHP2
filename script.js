@@ -35,6 +35,39 @@ const observer = new IntersectionObserver((entries) => {
 
 fadeEls.forEach(el => observer.observe(el));
 
+/* ===== 数字カウントアップアニメーション ===== */
+function countUp(el) {
+  const target = parseFloat(el.dataset.target);
+  const isFloat = target % 1 !== 0;
+  const duration = 1800;
+  const start = performance.now();
+  const update = (now) => {
+    const progress = Math.min((now - start) / duration, 1);
+    const eased = 1 - Math.pow(1 - progress, 3);
+    const current = target * eased;
+    el.textContent = isFloat
+      ? current.toFixed(1) + (el.dataset.suffix || '')
+      : Math.floor(current) + (el.dataset.suffix || '');
+    if (progress < 1) requestAnimationFrame(update);
+  };
+  requestAnimationFrame(update);
+}
+
+const statsSection = document.querySelector('.stats');
+if (statsSection) {
+  const statObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        statObserver.unobserve(entry.target);
+        setTimeout(() => {
+          entry.target.querySelectorAll('.stat-number[data-target]').forEach(countUp);
+        }, 300);
+      }
+    });
+  }, { threshold: 0.3 });
+  statObserver.observe(statsSection);
+}
+
 /* ===== メニュータブ切り替え ===== */
 document.querySelectorAll('.tab-btn').forEach(btn => {
   btn.addEventListener('click', () => {
